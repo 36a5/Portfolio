@@ -87,3 +87,28 @@ while running `npm run dev`.
 **Why:** it gives the owner a safe place to keep half-written entries in the repository without
 publishing them, which matters more here than usual because several entries are waiting on facts
 only he has.
+
+### D-011 — The CV is not published as supplied
+**2026-08-31.** `cvFile` in `src/data/site.ts` stays unset. Neither supplied CV PDF is committed.
+**Why:** both carry the owner's phone number and home address, and a references section listing
+seven Saudi Aramco employees by name with their direct work emails and personal mobile numbers.
+Publishing that would expose seven third parties who never agreed to it, on a page indexed by
+search engines. The owner's own contact details are his to publish; theirs are not.
+**What unblocks it:** a copy with the references section, phone number and address removed. Put it
+in `public/cv/` and set `cvFile`. The download buttons appear on their own once that field is set.
+
+### D-012 — Work history lives in its own collection, on the About page
+**2026-08-31.** Roles are markdown files in `src/content/experience/`, rendered as a timeline on
+`/about` together with education, awards and skills. Certificates stay on `/certificates`.
+**Why:** the owner supplied a full CV, and a portfolio that shows projects but hides the Aramco
+placement and the freelance record undersells him. Keeping it on About rather than adding a sixth
+navigation entry keeps the header from crowding on a phone.
+**Detail:** roles are ordered by when each one ended, not when it started, so a long freelance
+stretch that ran until January 2026 sits above a placement that started later and ended earlier.
+
+### D-013 — Certificate dates are optional, never inferred
+**2026-08-31.** `issueDate` on a credential is optional; cards show a date only when one exists.
+**Why:** the CV lists fourteen course certificates with no dates. The first implementation passed
+`undefined` into the date formatter, which silently formatted *today* — every certificate rendered
+as "Aug 2026", which is a false claim on a page recruiters read. The schema now allows the field to
+be absent and the card renders nothing rather than something untrue.

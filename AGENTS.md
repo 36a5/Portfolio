@@ -121,9 +121,11 @@ npm run check     # type-check content and components
 ```
 src/content/projects/    one markdown file per project  -> /projects/<file-name>
 src/content/credentials/ certificates and certifications
+src/content/experience/  one markdown file per role, shown on /about
 src/content/now/         dated status entries, newest wins
 src/content.config.ts    the schemas; a bad field fails the build
 src/data/site.ts         name, role, tagline, links, nav, CV file name
+src/data/resume.ts       education, awards, skill groups, spoken languages
 src/lib/                 content queries and date formatting
 src/components/          cards, header, footer, theme toggle
 src/pages/               home, projects, project detail, certificates, now, about, 404
@@ -139,7 +141,11 @@ into a page — it goes in `src/content/`.
 come from the Pages configuration at build time, so moving to a custom domain or another host
 means changing `SITE_URL` / `SITE_BASE`, nothing else.
 
-**Content accuracy:** the first pass of project pages was drafted from the owner's public
-repository READMEs. Dates were taken from repository creation and last-push timestamps and are
-approximations. The owner must confirm dates, roles and team lists before treating any of it as
-final.
+**Content accuracy:** content comes from the owner's public repositories, his LinkedIn profile
+export and his CVs. Nothing on the site was invented. Some dates are still approximations where the
+source gave only a year — see `docs/STATE.md`.
+
+**Personal data:** this is a public site. The owner's email and public profile links belong on it.
+His phone number, his home address, and any third party's contact details do not — the CVs he
+supplied contain all three, which is why no CV PDF is committed. See `docs/DECISIONS.md` → D-011
+before adding one.

@@ -3,7 +3,7 @@ title: "Kolna Akhthar — Pothole Detection"
 summary: "A YOLO11 computer-vision system that detects potholes from road imagery, records each location and pins it to a map, in support of Saudi Arabia's greening initiative."
 status: completed
 startDate: 2025-01-29
-endDate: 2025-01-30
+endDate: 2025-02-28
 role: "Machine learning engineer"
 team:
   - "Abdullrahman Alajlan"
@@ -12,7 +12,6 @@ team:
 languages: ["Python"]
 tools: ["YOLO11", "OpenCV", "Ultralytics"]
 tags: ["Computer Vision", "Object Detection", "Team Project"]
-featured: true
 links:
   - label: "Repository"
     url: "https://github.com/36a5/Kolna_Akhthar"

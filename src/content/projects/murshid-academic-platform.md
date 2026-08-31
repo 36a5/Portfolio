@@ -1,11 +1,12 @@
 ---
 title: "Murshid — Academic Support Platform"
 summary: "An Arabic academic-guidance platform for university students: a Laravel web app, an AI chatbot, and a wake-word voice assistant that answers hands-free in Arabic."
-status: completed
-startDate: 2025-04-26
-role: "Developer"
+status: in-progress
+startDate: 2025-04-01
+role: "Developer — AI assistant and platform"
 team:
   - "Abdulrhman Salamah"
+  - "Team from the Transformation Hackathon, King Saud University"
 languages: ["PHP", "Python", "JavaScript"]
 tools: ["Laravel", "Blade", "Streamlit", "Whisper", "Wav2Vec2", "Edge TTS"]
 tags: ["Full Stack", "NLP", "Arabic"]
@@ -15,6 +16,9 @@ links:
 ---
 
 ## What it is
+
+Built with colleagues during the Transformation Hackathon at King Saud University, and
+developed further since.
 
 مرشد (*Murshid*) is a comprehensive academic-guidance platform aimed at university students, built
 first around King Saud University. The name is an acronym in Arabic: **م**ساعد **ر**قمي **ش**امل

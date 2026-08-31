@@ -41,8 +41,20 @@ public/                    served as-is: favicon, CV PDF
 ## Deployment
 
 Pushing to `main` builds the site and publishes it to GitHub Pages through
-`.github/workflows/deploy.yml`. The site URL and base path are supplied by the Pages configuration
-at build time, so moving to a custom domain requires no code change.
+`.github/workflows/deploy.yml`.
+
+**One-time setup:** Settings → Pages → Build and deployment → Source: **GitHub Actions**. The
+workflow token cannot switch Pages on by itself. Once it is on, every push deploys automatically
+and the site is served at `https://36a5.github.io/Portfolio`.
+
+The site URL and base path are read from the environment at build time
+(`SITE_URL` and `SITE_BASE`), so nothing in the code is tied to a host:
+
+| Target | `SITE_URL` | `SITE_BASE` |
+| --- | --- | --- |
+| GitHub Pages project site | supplied by the Pages configuration | `/Portfolio` |
+| Custom domain | `https://your-domain.com` | `/` |
+| Another static host | that host's URL | `/` |
 
 ## Repository documentation
 

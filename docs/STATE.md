@@ -4,34 +4,44 @@ _Last updated: 2026-08-31_
 
 ## Now
 
-The portfolio site exists and builds. `main` holds a working Astro site with real content.
+The portfolio site is built and pushed. It is not published yet — see "Blocked on the owner".
 
 - **Stack:** Astro 7 static, Tailwind 4, TypeScript, markdown content collections.
 - **Pages:** home, projects index with topic filter, project detail, certificates, now, about, 404.
-- **Content:** 8 published projects drafted from the owner's public repositories, 1 draft project
-  (`aiamp-frontend`, needs a real description), 1 "now" entry, 0 certificates.
-- **Build:** `npm run build` produces 14 pages with no warnings.
-- **Deploy:** `.github/workflows/deploy.yml` publishes to GitHub Pages on every push to `main`.
+- **Content:** 12 published projects, 1 draft, 15 certificates and certifications, 5 roles in the
+  experience timeline, education, awards, skills, and one "now" entry.
+- **Sources used:** the owner's public repositories, his LinkedIn profile export, and two CV PDFs
+  he supplied. Nothing was invented.
+- **Build:** `npm run build` → 18 pages, no warnings. `npm run check` → 0 errors.
 - **Guard:** `scripts/check-clean.sh --all` passes; the pre-commit hook is wired.
 
 ## Blocked on the owner
 
-1. **Enable GitHub Pages.** Repository → Settings → Pages → Build and deployment → Source:
-   **GitHub Actions**. Until that is set, the deploy workflow builds but cannot publish. The site
-   will then be at `https://36a5.github.io/Portfolio`.
-2. **Certificates and certifications.** LinkedIn blocks automated reading (HTTP 999), so none could
-   be imported. The owner needs to supply the list, or export the LinkedIn profile to PDF.
-3. **CV.** To be uploaded. Put the PDF in `public/cv/` and set `cvFile` in `src/data/site.ts`.
-4. **Verify the drafted content.** Project dates come from repository timestamps and are
-   approximations; roles and team lists need confirming. The `now` entry and the about page text
-   were written from public profile information and should be corrected in the owner's own words.
-5. **Project images.** Every project currently shows a generated gradient placeholder. Real
+1. **Switch GitHub Pages on, once.** Settings → Pages → Build and deployment → Source:
+   **GitHub Actions**. The workflow token is not permitted to create the Pages site itself; both
+   deploy runs so far failed on exactly that. Once it is on, every push publishes automatically to
+   `https://36a5.github.io/Portfolio`.
+2. **Decide the public URL.** The owner asked for a domain carrying his name. His LinkedIn already
+   points at a name-based host subdomain, which suggests moving the deployment there, or buying a
+   custom domain and pointing it at Pages. See `docs/DECISIONS.md` → D-008.
+3. **A publishable CV.** Both CVs supplied carry a personal phone number, a home address, and seven
+   named referees with their direct emails and phone numbers. None of that may go on a public site —
+   the referees' details are other people's data. `cvFile` in `src/data/site.ts` is deliberately
+   unset until a redacted copy exists.
+4. **Confirm dates and details.** Several project dates are approximations: repository timestamps
+   where the CV gave no month. The freelance customer-support project is dated to the start of 2025
+   because the CV gives only the year.
+5. **Project images.** Every card currently shows a generated gradient placeholder. Real
    screenshots go in `src/assets/projects/<slug>/`.
+6. **`aiamp-frontend`** is committed with `draft: true` — the repository has no description and
+   nothing is known about it.
+7. **The Aramco recommendation letter** was supplied but is not published. It names and quotes a
+   supervisor; publishing it is the owner's call, not an automatic one.
 
 ## Next
 
-1. Owner completes the five items above.
+1. Owner clears the items above.
 2. Replace placeholder covers with real screenshots.
-3. Decide on a name-based domain: a custom domain pointed at Pages, or a host that gives a
-   name-based subdomain. See `docs/DECISIONS.md` → D-008.
-4. Consider an Arabic version of the site once the English content is settled.
+3. Consider an Arabic version of the site once the English content is settled.
+4. Consider adding the offline Arabic voice-assistant work as its own project page — it is
+   mentioned in the LinkedIn summary but has no repository or detail yet.

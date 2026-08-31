@@ -15,9 +15,33 @@ export async function getFeaturedProjects(limit = 3) {
   return (featured.length > 0 ? featured : projects).slice(0, limit);
 }
 
+/** Dated credentials first, newest first; undated ones after, alphabetically. */
 export async function getCredentials(): Promise<CollectionEntry<'credentials'>[]> {
   const credentials = await getCollection('credentials', isPublished);
-  return credentials.sort((a, b) => b.data.issueDate.getTime() - a.data.issueDate.getTime());
+  return credentials.sort((a, b) => {
+    const at = a.data.issueDate?.getTime();
+    const bt = b.data.issueDate?.getTime();
+    if (at && bt) return bt - at;
+    if (at) return -1;
+    if (bt) return 1;
+    return a.data.title.localeCompare(b.data.title);
+  });
+}
+
+/**
+ * Ordered by when each role last ran, not when it started: a long freelance stretch that
+ * ended this year belongs above a short placement that started later and finished earlier.
+ * Anything still running sorts to the top; ties fall back to the later start date.
+ */
+export async function getExperience(): Promise<CollectionEntry<'experience'>[]> {
+  const roles = await getCollection('experience', isPublished);
+  return roles.sort((a, b) => {
+    if (a.data.current !== b.data.current) return a.data.current ? -1 : 1;
+    const aEnd = a.data.endDate?.getTime() ?? Date.now();
+    const bEnd = b.data.endDate?.getTime() ?? Date.now();
+    if (aEnd !== bEnd) return bEnd - aEnd;
+    return b.data.startDate.getTime() - a.data.startDate.getTime();
+  });
 }
 
 /** Newest status entry first; the first one is what the site shows as "now". */

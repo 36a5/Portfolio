@@ -5,6 +5,62 @@ per the memory protocol in `AGENTS.md` section 5.
 
 ---
 
+## 2026-08-31 — Session 3: real content from the owner's CV, LinkedIn and certificates
+
+**Goal:** replace the repository-derived first pass with the owner's actual record, after he
+supplied a LinkedIn profile export, two CV PDFs, the SDAIA certificate and an Aramco
+recommendation letter.
+
+**Source handling**
+
+- LinkedIn cannot be read over the network (HTTP 999), so the profile export PDF was the source.
+- Text was extracted with `pypdf`. The system `cryptography` binding was broken and had to be
+  repaired with `pip install --upgrade cffi` before `pypdf` would import; `poppler-utils` is not
+  installable in this environment.
+
+**Added**
+
+- New `experience` collection with five roles: freelance AI engineer (2023–2026), Saudi Aramco,
+  the Digital Government Authority, and two Emerging Technologies Club roles at KSU.
+- `src/data/resume.ts` — education, awards, skill groups and spoken languages.
+- `/about` rewritten as a full résumé page: summary, experience timeline, education, awards,
+  skills, languages and contacts.
+- 15 credential entries: the CDMP certification, the SDAIA Building Agentic AI Systems certificate
+  (5–9 July 2026), and thirteen course and workshop certificates.
+- Five new project pages: Aramco predictive maintenance, the freelance AI customer-support
+  ecosystem, Jarvis, advertising automation, and product success prediction.
+- The two Arabic Sign Language entries were merged into one page for **Emma'a (إيماء)**, the
+  graduation project that took first place in the college competition, linking both repositories.
+- Murshid corrected: it began at the Transformation Hackathon at KSU and was built with colleagues.
+- Identity updated: the role is "AI & Machine Learning Engineer" and the tagline now comes from the
+  owner's own summary.
+
+**Fixed**
+
+- Credential dates: `issueDate` was required, and passing `undefined` to `Intl.DateTimeFormat`
+  formats *today's* date — so all fourteen undated certificates rendered as "Aug 2026". The field
+  is now optional and the date is only rendered when present. Recorded as D-013.
+- `astro check` was added (`@astrojs/check`, `typescript`) and the deprecated `z` re-export from
+  `astro:content` was replaced with `astro/zod`. Check now reports 0 errors, 0 warnings.
+- Experience ordering switched from start date to end date, so the freelance stretch sorts above
+  shorter later placements.
+
+**Not published, deliberately**
+
+- Neither CV PDF, and no `cvFile` link: both contain the owner's phone number and home address, and
+  seven named Aramco referees with direct emails and mobile numbers. Recorded as D-011.
+- The Aramco recommendation letter: it quotes and names a supervisor, and publishing it is the
+  owner's decision.
+
+**Deployment**
+
+- Both Pages deploy runs failed at `actions/configure-pages`: first because Pages was not enabled,
+  then because the workflow token is not permitted to create the Pages site
+  ("Resource not accessible by integration"). The `enablement: true` attempt was reverted and the
+  one-time manual step is documented in the README and in `docs/STATE.md`.
+
+---
+
 ## 2026-08-31 — Session 2: the portfolio site
 
 **Goal:** build the actual portfolio — projects, certificates, and a current-status page — and get

@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 /**
@@ -45,7 +46,8 @@ const credentials = defineCollection({
       /** "certification" = formal credential; "certificate" = course or workshop completion. */
       kind: z.enum(['certification', 'certificate']).default('certificate'),
       issuer: z.string(),
-      issueDate: z.coerce.date(),
+      /** Optional: most course certificates carry no date the owner still has. */
+      issueDate: z.coerce.date().optional(),
       expiryDate: z.coerce.date().optional(),
       credentialId: z.string().optional(),
       credentialUrl: z.string().url().optional(),
@@ -54,6 +56,22 @@ const credentials = defineCollection({
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
     }),
+});
+
+const experience = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/experience' }),
+  schema: z.object({
+    role: z.string(),
+    organisation: z.string(),
+    organisationUrl: z.string().url().optional(),
+    location: z.string().optional(),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date().optional(),
+    current: z.boolean().default(false),
+    highlights: z.array(z.string()).default([]),
+    skills: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+  }),
 });
 
 const now = defineCollection({
@@ -68,4 +86,4 @@ const now = defineCollection({
   }),
 });
 
-export const collections = { projects, credentials, now };
+export const collections = { projects, credentials, experience, now };
