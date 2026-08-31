@@ -21,9 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # enablement: true turns Pages on for the repository on the first run, so
+      # the site does not need Pages switched on by hand in the settings first.
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/setup-node@v4
         with:
