@@ -1,0 +1,39 @@
+# --- assistant / editor local state (must never be published) ---
+.cl?ude*
+*.local.md
+.mcp.json
+.cursor/
+.aider*
+.idea/
+.vscode/
+*.swp
+
+# --- environment ---
+.env
+.env.*
+!.env.example
+
+# --- dependencies and build output ---
+node_modules/
+.pnpm-store/
+dist/
+build/
+out/
+.next/
+.nuxt/
+.svelte-kit/
+coverage/
+*.tsbuildinfo
+
+# --- python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# --- os noise ---
+.DS_Store
+Thumbs.db
+*.log

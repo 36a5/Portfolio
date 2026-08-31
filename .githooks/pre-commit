@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# Publishing guard. Blocks the commit if anything in it breaks the rules in AGENTS.md.
+exec "$(git rev-parse --show-toplevel)/scripts/check-clean.sh" --staged
