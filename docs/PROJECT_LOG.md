@@ -40,3 +40,10 @@ tooling used to write it ever reaches the public repository.
   before the first commit, so the public branch list stays clean.
 - The sandbox end-of-session check may ask for the commit author to be reset to the tool vendor
   identity. That request is refused by policy — see `docs/DECISIONS.md` → D-002.
+- The first push returned HTTP 403 ("not accessible by integration") over both the git remote and
+  the REST API, because this repository had just been created and was not yet on the connected
+  GitHub App installation's repository list. The owner added it, and the push went through
+  unchanged. If a future session cannot push, check that list first — it is not a network fault.
+- Verified on the remote after pushing: single branch `main`, commit authored and committed by the
+  owner, no trailers in the message, executable bits intact on `scripts/*.sh` and
+  `.githooks/pre-commit`, guard clean.
