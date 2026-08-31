@@ -1,0 +1,79 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Pill from '../components/Pill.astro';
+import { fullDate } from '../lib/format';
+import { getNowEntries } from '../lib/content';
+
+const entries = await getNowEntries();
+const [current, ...history] = entries;
+const rendered = current ? await render(current) : null;
+const Current = rendered?.Content;
+---
+
+<Base title="Now" description="What Abdulrhman Salamah is studying, building and learning right now.">
+  <header class="py-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Now</h1>
+    <p class="mt-3 max-w-2xl text-muted">
+      A running log of what I am working on. Newest entry first.
+    </p>
+  </header>
+
+  {
+    current && (
+      <section class="rounded-xl border border-border bg-surface p-6">
+        <div class="flex flex-wrap items-center gap-3">
+          <time class="text-sm text-muted" datetime={current.data.date.toISOString()}>
+            {fullDate(current.data.date)}
+          </time>
+          {current.data.openToWork && <Pill tone="accent">Open to opportunities</Pill>}
+        </div>
+
+        <p class="mt-4 text-xl font-medium">{current.data.headline}</p>
+
+        <dl class="mt-6 grid gap-5 sm:grid-cols-3">
+          {[
+            ['Studying', current.data.studying],
+            ['Building', current.data.building],
+            ['Learning', current.data.learning],
+          ].map(([label, items]) =>
+            (items as string[]).length > 0 ? (
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-muted">{label}</dt>
+                <dd class="mt-2 space-y-1.5 text-sm">
+                  {(items as string[]).map((item) => (
+                    <p>{item}</p>
+                  ))}
+                </dd>
+              </div>
+            ) : null,
+          )}
+        </dl>
+
+        {Current && (
+          <div class="mt-6 border-t border-border pt-5 text-sm leading-relaxed [&_a]:text-accent [&_a]:underline [&_p]:my-3">
+            <Current />
+          </div>
+        )}
+      </section>
+    )
+  }
+
+  {
+    history.length > 0 && (
+      <section class="mt-12">
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">Earlier</h2>
+        <ol class="mt-4 space-y-4">
+          {history.map((entry) => (
+            <li class="rounded-xl border border-border p-5">
+              <time class="text-xs text-muted" datetime={entry.data.date.toISOString()}>
+                {fullDate(entry.data.date)}
+              </time>
+              <p class="mt-2">{entry.data.headline}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+</Base>

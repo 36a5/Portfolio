@@ -1,0 +1,17 @@
+---
+/**
+ * Runs before first paint so the stored theme never flashes.
+ * Kept inline and tiny on purpose — it is the only render-blocking script.
+ */
+---
+<script is:inline>
+  (() => {
+    try {
+      const stored = localStorage.getItem('theme');
+      const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = stored === 'light' || stored === 'dark' ? stored : system;
+    } catch {
+      document.documentElement.dataset.theme = 'light';
+    }
+  })();
+</script>

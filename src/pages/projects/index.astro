@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects, collectFilters } from '../../lib/content';
+
+const projects = await getProjects();
+const filters = collectFilters(projects);
+---
+
+<Base title="Projects" description="Machine learning, computer vision, agentic AI and full-stack projects.">
+  <header class="py-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Projects</h1>
+    <p class="mt-3 max-w-2xl text-muted">
+      {projects.length} projects, newest first. Filter by language, tool or topic.
+    </p>
+  </header>
+
+  <div id="filters" class="flex flex-wrap gap-2 border-y border-border py-4">
+    <button
+      type="button"
+      data-filter="all"
+      aria-pressed="true"
+      class="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:text-ink aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
+      >All</button
+    >
+    {
+      filters.map((filter) => (
+        <button
+          type="button"
+          data-filter={filter.toLowerCase()}
+          aria-pressed="false"
+          class="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:text-ink aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
+        >
+          {filter}
+        </button>
+      ))
+    }
+  </div>
+
+  <div id="grid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </div>
+
+  <p id="empty" hidden class="mt-8 text-muted">No projects match that filter.</p>
+</Base>
+
+<script>
+  const filters = document.getElementById('filters');
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+
+  filters?.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
+    if (!button || !grid || !empty) return;
+
+    const active = button.dataset.filter ?? 'all';
+    filters.querySelectorAll('button[data-filter]').forEach((b) =>
+      b.setAttribute('aria-pressed', String(b === button)),
+    );
+
+    let visible = 0;
+    grid.querySelectorAll<HTMLElement>('article[data-tags]').forEach((card) => {
+      const tags = (card.dataset.tags ?? '').split('|');
+      const show = active === 'all' || tags.includes(active);
+      card.hidden = !show;
+      if (show) visible += 1;
+    });
+    empty.hidden = visible > 0;
+  });
+</script>

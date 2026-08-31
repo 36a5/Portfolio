@@ -97,14 +97,49 @@ scripts/check-clean.sh  publishing guard
 
 ---
 
-## 7. The project itself
+## 7. The project
 
-**Status: not started.** Foundation and rules only, as of 2026-08-31.
+A personal portfolio site for the owner: projects, certificates and certifications, and a running
+"now" status. Audience is employers and recruiters, so the public site stays factual and plain.
 
-Fill this section in during the session where real work begins, and keep it current:
+**Stack:** Astro 7 (static output) · Tailwind CSS 4 · TypeScript · Markdown content collections
+validated with Zod. No client framework — the only JavaScript shipped is the theme toggle and the
+project filter.
 
-- Goal and audience of the portfolio
-- Stack and hosting target
-- Local commands: install, run, build, test, lint
-- Directory structure and conventions
-- Content sources (projects, CV, contact)
+**Commands**
+
+```bash
+npm install       # once per clone
+npm run dev       # local dev server
+npm run build     # static build into dist/
+npm run preview   # serve the production build
+npm run check     # type-check content and components
+```
+
+**Layout**
+
+```
+src/content/projects/    one markdown file per project  -> /projects/<file-name>
+src/content/credentials/ certificates and certifications
+src/content/now/         dated status entries, newest wins
+src/content.config.ts    the schemas; a bad field fails the build
+src/data/site.ts         name, role, tagline, links, nav, CV file name
+src/lib/                 content queries and date formatting
+src/components/          cards, header, footer, theme toggle
+src/pages/               home, projects, project detail, certificates, now, about, 404
+src/assets/              images referenced from content (optimised at build)
+public/                  files served as-is: favicon, CV PDF
+.github/workflows/deploy.yml   builds and publishes to GitHub Pages on push to main
+```
+
+Adding content is documented in `docs/CONTENT.md`. Never hard-code a project or a certificate
+into a page — it goes in `src/content/`.
+
+**Deployment:** GitHub Pages, built by Actions on every push to `main`. The site URL and base path
+come from the Pages configuration at build time, so moving to a custom domain or another host
+means changing `SITE_URL` / `SITE_BASE`, nothing else.
+
+**Content accuracy:** the first pass of project pages was drafted from the owner's public
+repository READMEs. Dates were taken from repository creation and last-push timestamps and are
+approximations. The owner must confirm dates, roles and team lists before treating any of it as
+final.

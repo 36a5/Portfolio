@@ -1,0 +1,43 @@
+---
+import { nav, href, site } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (path: string) => {
+  const target = href(path).replace(/\/+$/, '') || '/';
+  return path === '/' ? current === target : current.startsWith(target);
+};
+---
+
+<header class="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur">
+  <div
+    class="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-3 gap-y-2 px-5 py-3 sm:flex-nowrap sm:px-8"
+  >
+    <a href={href('/')} class="mr-auto font-semibold tracking-tight hover:text-accent">
+      {site.name}
+    </a>
+
+    <div class="order-1 sm:order-3 sm:ml-3"><ThemeToggle /></div>
+
+    <!-- On narrow screens the nav drops to its own scrollable row instead of overflowing. -->
+    <nav
+      aria-label="Main"
+      class="order-3 -mx-1 flex w-full items-center gap-0.5 overflow-x-auto px-1 sm:order-2 sm:mx-0 sm:w-auto sm:gap-1 sm:overflow-visible sm:px-0"
+    >
+      {
+        nav.slice(1).map((item) => (
+          <a
+            href={href(item.path)}
+            aria-current={isActive(item.path) ? 'page' : undefined}
+            class:list={[
+              'whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm transition sm:px-3',
+              isActive(item.path) ? 'bg-accent-soft text-accent' : 'text-muted hover:text-ink',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

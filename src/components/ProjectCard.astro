@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { href } from '../data/site';
+import { dateRange } from '../lib/format';
+import CoverImage from './CoverImage.astro';
+import Pill from './Pill.astro';
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const { data } = project;
+const chips = [...data.languages, ...data.tools].slice(0, 4);
+const extra = data.languages.length + data.tools.length - chips.length;
+---
+<article
+  class="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-accent"
+  data-tags={[...data.tags, ...data.tools, ...data.languages].join('|').toLowerCase()}
+>
+  <a href={href(`/projects/${project.id}`)} class="block aspect-[16/9] overflow-hidden">
+    <CoverImage src={data.cover} alt={data.coverAlt} title={data.title} class="transition duration-300 group-hover:scale-[1.03]" />
+  </a>
+
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <div class="flex items-start justify-between gap-3">
+      <h3 class="text-lg font-semibold leading-snug">
+        <a href={href(`/projects/${project.id}`)} class="hover:text-accent">{data.title}</a>
+      </h3>
+      {data.status === 'in-progress' && <Pill tone="accent">Active</Pill>}
+    </div>
+
+    <p class="text-sm text-muted">{dateRange(data.startDate, data.endDate, data.status)}</p>
+    <p class="flex-1 text-sm leading-relaxed text-muted">{data.summary}</p>
+
+    <div class="flex flex-wrap gap-1.5 pt-1">
+      {chips.map((chip) => <Pill>{chip}</Pill>)}
+      {extra > 0 && <Pill tone="outline">+{extra}</Pill>}
+    </div>
+  </div>
+</article>

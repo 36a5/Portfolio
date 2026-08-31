@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* Manual theme switch wins over the system preference; see ThemeScript.astro. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", "Noto Sans Arabic", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-bg: #ffffff;
+  --color-surface: #f5f7f8;
+  --color-border: #e2e8ec;
+  --color-ink: #0d1418;
+  --color-muted: #55636e;
+  --color-accent: #0f766e;
+  --color-accent-soft: #d5f2ee;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0a0e12;
+  --color-surface: #121a21;
+  --color-border: #223039;
+  --color-ink: #e7eef4;
+  --color-muted: #94a5b2;
+  --color-accent: #2dd4bf;
+  --color-accent-soft: #103a38;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+[data-theme="dark"] html,
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

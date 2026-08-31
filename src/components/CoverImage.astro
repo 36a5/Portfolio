@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src?: ImageMetadata;
+  alt?: string;
+  title: string;
+  class?: string;
+}
+const { src, alt = '', title, class: className = '' } = Astro.props;
+/** Deterministic hue per title so placeholder covers stay stable between builds. */
+const hue = [...title].reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) % 360, 7);
+const initials = title
+  .replace(/[^\p{L}\p{N} ]/gu, '')
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((w) => w[0]?.toUpperCase())
+  .join('');
+---
+{
+  src ? (
+    <Image
+      src={src}
+      alt={alt || title}
+      widths={[400, 800, 1200]}
+      sizes="(max-width: 640px) 100vw, 640px"
+      class:list={['h-full w-full object-cover', className]}
+      loading="lazy"
+    />
+  ) : (
+    <div
+      class:list={['flex h-full w-full items-center justify-center', className]}
+      style={`background:linear-gradient(135deg, hsl(${hue} 45% 22%), hsl(${(hue + 48) % 360} 55% 34%))`}
+      aria-hidden="true"
+    >
+      <span class="font-mono text-2xl font-semibold tracking-widest text-white/85">{initials}</span>
+    </div>
+  )
+}

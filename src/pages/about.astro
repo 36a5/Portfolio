@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, href } from '../data/site';
+
+const contacts = [
+  { label: 'Email', value: site.email, url: `mailto:${site.email}` },
+  { label: 'GitHub', value: '36a5', url: site.github },
+  { label: 'LinkedIn', value: 'Abdulrahman Salamah', url: site.linkedin },
+  { label: 'Location', value: site.location, url: null },
+];
+---
+
+<Base title="About" description={site.description}>
+  <header class="py-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About</h1>
+  </header>
+
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
+    <div class="space-y-5 leading-relaxed">
+      <p>
+        I am {site.name} ({site.nameArabic}), a Data Science graduate of King Saud University,
+        based in {site.location}. I work across machine learning and software engineering: computer
+        vision and deep learning pipelines, agentic AI systems, data analysis, and the web and
+        backend work that turns a model into something people can actually use.
+      </p>
+      <p>
+        Most of my projects start from a real problem in front of me — Arabic sign language that
+        software does not understand, roads that nobody has surveyed, students who cannot find
+        academic guidance — and end as a working system with the model, the interface, and the
+        deployment all accounted for.
+      </p>
+      <p>
+        This site is the record of that work. Every project page lists what it was, when it ran,
+        who it was built with, and the tools behind it.
+      </p>
+    </div>
+
+    <aside class="lg:sticky lg:top-24 lg:self-start">
+      <dl class="rounded-xl border border-border bg-surface p-5 text-sm">
+        {
+          contacts.map((contact) => (
+            <div class="border-b border-border py-3 first:pt-0 last:border-0 last:pb-0">
+              <dt class="text-xs font-semibold uppercase tracking-wider text-muted">
+                {contact.label}
+              </dt>
+              <dd class="mt-1 break-words">
+                {contact.url ? (
+                  <a href={contact.url} class="text-accent hover:underline" rel="noopener">
+                    {contact.value}
+                  </a>
+                ) : (
+                  contact.value
+                )}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      {
+        site.cvFile && (
+          <a
+            href={href(`/cv/${site.cvFile}`)}
+            class="mt-4 block rounded-lg border border-border px-4 py-2.5 text-center text-sm font-medium transition hover:border-accent hover:text-accent"
+          >
+            Download CV
+          </a>
+        )
+      }
+    </aside>
+  </div>
+</Base>

@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import CredentialCard from '../components/CredentialCard.astro';
+import { getCredentials } from '../lib/content';
+
+const credentials = await getCredentials();
+const certifications = credentials.filter((c) => c.data.kind === 'certification');
+const certificates = credentials.filter((c) => c.data.kind === 'certificate');
+---
+
+<Base title="Certificates" description="Certifications, courses and workshops completed by Abdulrhman Salamah.">
+  <header class="py-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Certificates</h1>
+    <p class="mt-3 max-w-2xl text-muted">
+      Formal certifications first, then course and workshop certificates.
+    </p>
+  </header>
+
+  {
+    credentials.length === 0 && (
+      <p class="rounded-xl border border-dashed border-border p-8 text-center text-muted">
+        Nothing published here yet.
+      </p>
+    )
+  }
+
+  {
+    certifications.length > 0 && (
+      <section class="mt-4">
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">Certifications</h2>
+        <div class="mt-4 grid gap-4">
+          {certifications.map((credential) => (
+            <CredentialCard credential={credential} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    certificates.length > 0 && (
+      <section class="mt-12">
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">
+          Courses and workshops
+        </h2>
+        <div class="mt-4 grid gap-4">
+          {certificates.map((credential) => (
+            <CredentialCard credential={credential} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Base>
