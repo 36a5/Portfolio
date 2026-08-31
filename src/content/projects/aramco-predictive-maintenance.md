@@ -11,6 +11,9 @@ languages: ["Python", "R", "SQL", "JavaScript"]
 tools: ["Gradient Boosting", "pandas", "SQL Server", "Node.js", "Power BI", "DAX"]
 tags: ["Machine Learning", "Time Series", "Industry", "Full Stack"]
 featured: true
+links:
+  - label: "Recommendation letter (PDF)"
+    url: "/letters/saudi-aramco-recommendation-letter.pdf"
 ---
 
 ## Context
@@ -48,6 +51,7 @@ platform built alongside them:
 ## Recognition
 
 Two certificates of appreciation, one from the Senior Vice President of Power Systems, and a
-recommendation letter from the department supervisor.
+recommendation letter from the supervisor of the Power Systems Engineering Department — linked
+alongside this page.
 
 *No code or data from this work is public.*

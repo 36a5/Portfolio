@@ -112,3 +112,38 @@ stretch that ran until January 2026 sits above a placement that started later an
 `undefined` into the date formatter, which silently formatted *today* — every certificate rendered
 as "Aug 2026", which is a false claim on a page recruiters read. The schema now allows the field to
 be absent and the card renders nothing rather than something untrue.
+
+### D-014 — The CV and the recommendation letter are published, redacted, superseding D-011
+**2026-08-31.** The owner asked for both to go on the site, with his email kept as the contact
+point. Both are published from `public/`, as **redacted copies of the original PDFs** rather than
+retyped versions.
+
+**Removed from the CV** (`public/cv/abdulrhman-salamah-cv.pdf`): the personal phone number, the home
+street address, and the entire references section listing seven Saudi Aramco employees with their
+direct emails and mobile numbers. **Kept:** the email address, the LinkedIn URL, and the city.
+"References available on request." was added in place of the removed section.
+
+**Removed from the letter** (`public/letters/saudi-aramco-recommendation-letter.pdf`): two lines
+from the signature block — the supervisor's direct office telephone number and his work email.
+**Kept:** everything else, including the letterhead, the full text, the handwritten signature, and
+the supervisor's name, title, department and office address.
+
+**Why redact rather than retype:** a recommendation letter's credibility rests on it being the
+original document. Retyping it into a new PDF would have stripped the letterhead and the signature
+and made it look like a claim rather than a document. The text was removed with a true PDF
+redaction, so it is gone from the file rather than covered over — verified by re-extracting the
+text of both files and asserting that none of the removed strings survive.
+
+**Why the two signature lines still went:** the owner may publish his own contact details, and the
+letter's author invited contact when writing it — but he invited it from people holding the letter,
+not from anyone crawling a public site. Removing a phone number and an email costs the document
+nothing. If the owner wants them back, the originals are unchanged and the redaction step is
+recorded here.
+
+### D-015 — Content links may be site-relative
+**2026-08-31.** A project's `links` entry accepts either an absolute URL or a path starting with
+`/`; the template prefixes relative paths with the base path and only marks absolute ones as
+external.
+**Why:** the Aramco project needed to link the recommendation letter, which is served from this
+site. Note that markdown bodies are *not* base-path aware — a `/letters/...` link written inside a
+markdown body would break under the `/Portfolio` base path. Internal links belong in front matter.

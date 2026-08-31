@@ -10,12 +10,20 @@ export const site = {
   github: 'https://github.com/36a5',
   linkedin: 'https://www.linkedin.com/in/abdulrahman-salamah-7b4478215/',
   /**
-   * Drop a PDF at public/cv/ and put the file name here to show the download button.
-   * Deliberately unset: the CV versions supplied carry a personal phone number, a home
-   * address and seven named referees' direct contact details. A public download needs a
-   * copy with those removed.
+   * Public CV, served from public/cv/. This copy has the personal phone number, the home
+   * address and the seven-referee contact list removed; the email and the city stay.
+   * See docs/DECISIONS.md -> D-014 before replacing it.
    */
-  cvFile: null as string | null,
+  cvFile: 'abdulrhman-salamah-cv.pdf' as string | null,
+  /** Recommendation letter, served from public/letters/. */
+  recommendation: {
+    file: 'saudi-aramco-recommendation-letter.pdf',
+    author: 'Khaled Alotaibi',
+    authorRole: 'Supervisor, Power Systems Engineering Department, Saudi Aramco',
+    date: 'December 2025',
+    quote:
+      'Abdurhman demonstrated exceptional technical expertise, creativity, and professionalism, making significant contributions that will have a lasting impact on our organization.',
+  },
   description:
     'Portfolio of Abdulrhman Salamah — AI and machine learning engineer in Riyadh. Agentic AI, retrieval pipelines, computer vision and predictive maintenance.',
 } as const;

@@ -9,7 +9,8 @@ The portfolio site is built and pushed. It is not published yet — see "Blocked
 - **Stack:** Astro 7 static, Tailwind 4, TypeScript, markdown content collections.
 - **Pages:** home, projects index with topic filter, project detail, certificates, now, about, 404.
 - **Content:** 12 published projects, 1 draft, 15 certificates and certifications, 5 roles in the
-  experience timeline, education, awards, skills, and one "now" entry.
+  experience timeline, education, awards, skills, one "now" entry, a redacted CV and the Saudi
+  Aramco recommendation letter.
 - **Sources used:** the owner's public repositories, his LinkedIn profile export, and two CV PDFs
   he supplied. Nothing was invented.
 - **Build:** `npm run build` → 18 pages, no warnings. `npm run check` → 0 errors.
@@ -24,10 +25,6 @@ The portfolio site is built and pushed. It is not published yet — see "Blocked
 2. **Decide the public URL.** The owner asked for a domain carrying his name. His LinkedIn already
    points at a name-based host subdomain, which suggests moving the deployment there, or buying a
    custom domain and pointing it at Pages. See `docs/DECISIONS.md` → D-008.
-3. **A publishable CV.** Both CVs supplied carry a personal phone number, a home address, and seven
-   named referees with their direct emails and phone numbers. None of that may go on a public site —
-   the referees' details are other people's data. `cvFile` in `src/data/site.ts` is deliberately
-   unset until a redacted copy exists.
 4. **Confirm dates and details.** Several project dates are approximations: repository timestamps
    where the CV gave no month. The freelance customer-support project is dated to the start of 2025
    because the CV gives only the year.
@@ -35,8 +32,8 @@ The portfolio site is built and pushed. It is not published yet — see "Blocked
    screenshots go in `src/assets/projects/<slug>/`.
 6. **`aiamp-frontend`** is committed with `draft: true` — the repository has no description and
    nothing is known about it.
-7. **The Aramco recommendation letter** was supplied but is not published. It names and quotes a
-   supervisor; publishing it is the owner's call, not an automatic one.
+7. **Check the two redacted PDFs** before the site goes public: `public/cv/` and
+   `public/letters/`. What was removed from each is recorded in `docs/DECISIONS.md` → D-014.
 
 ## Next
 

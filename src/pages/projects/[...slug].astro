@@ -73,16 +73,20 @@ const facts = [
         {
           data.links.length > 0 && (
             <div class="mt-4 flex flex-col gap-2">
-              {data.links.map((link) => (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener"
-                  class="rounded-lg border border-border px-4 py-2.5 text-center text-sm font-medium transition hover:border-accent hover:text-accent"
-                >
-                  {link.label} ↗
-                </a>
-              ))}
+              {data.links.map((link) => {
+                const external = /^https?:\/\//.test(link.url);
+                return (
+                  <a
+                    href={external ? link.url : href(link.url)}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener' : undefined}
+                    class="rounded-lg border border-border px-4 py-2.5 text-center text-sm font-medium transition hover:border-accent hover:text-accent"
+                  >
+                    {link.label}
+                    {external ? ' ↗' : ''}
+                  </a>
+                );
+              })}
             </div>
           )
         }

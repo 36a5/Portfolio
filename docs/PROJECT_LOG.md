@@ -5,6 +5,38 @@ per the memory protocol in `AGENTS.md` section 5.
 
 ---
 
+## 2026-08-31 — Session 4: CV and recommendation letter published, redacted
+
+**Goal:** the owner asked for the CV to go up with personal details removed but his email kept, and
+for the Aramco recommendation letter to be published.
+
+**Approach:** true PDF redaction with PyMuPDF against the original files, rather than retyping them.
+The originals keep their layout, and the removed text is gone from the file rather than covered by a
+box. `poppler-utils` cannot be installed in this environment; `pypdf` needed
+`pip install --upgrade cffi` before it would import.
+
+**Published**
+
+- `public/cv/abdulrhman-salamah-cv.pdf` — phone number, home address and the seven-referee section
+  removed; email, LinkedIn and city kept; "References available on request." added in their place.
+- `public/letters/saudi-aramco-recommendation-letter.pdf` — the supervisor's direct telephone
+  number and work email removed from the signature block; letterhead, full text, signature, name,
+  title and department kept.
+
+Both were verified after redaction by re-extracting their text and asserting that none of the
+removed strings survive and that the email does.
+
+**Wired in**
+
+- `site.cvFile` is set, so the download buttons on the home and about pages appear.
+- `site.recommendation` carries a pull-quote, attribution and the file name; the about page shows
+  the quote with a link to the full letter.
+- The Aramco project page links the letter from its sidebar.
+- A project's `links` may now be site-relative as well as absolute; the detail template
+  base-prefixes relative paths and only marks absolute ones as external. Recorded as D-015.
+
+---
+
 ## 2026-08-31 — Session 3: real content from the owner's CV, LinkedIn and certificates
 
 **Goal:** replace the repository-derived first pass with the owner's actual record, after he

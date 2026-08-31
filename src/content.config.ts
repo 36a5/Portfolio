@@ -10,7 +10,12 @@ import { glob } from 'astro/loaders';
 
 const link = z.object({
   label: z.string(),
-  url: z.string().url(),
+  /** An absolute URL, or a site-relative path starting with "/". */
+  url: z
+    .string()
+    .refine((value) => value.startsWith('/') || /^https?:\/\//.test(value), {
+      message: 'must be an absolute URL or a path starting with "/"',
+    }),
 });
 
 const projects = defineCollection({
