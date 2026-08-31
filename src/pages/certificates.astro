@@ -9,8 +9,11 @@ const certificates = credentials.filter((c) => c.data.kind === 'certificate');
 ---
 
 <Base title="Certificates" description="Certifications, courses and workshops completed by Abdulrhman Salamah.">
-  <header class="py-8">
-    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Certificates</h1>
+  <header class="py-10" data-reveal>
+    <p class="font-mono text-xs tracking-[0.2em] text-accent-2">// CREDENTIALS</p>
+    <h1 class="mt-2 text-4xl font-black tracking-tight sm:text-5xl">
+      <span class="gradient-text">Certificates</span>
+    </h1>
     <p class="mt-3 max-w-2xl text-muted">
       Formal certifications first, then course and workshop certificates.
     </p>
@@ -27,10 +30,12 @@ const certificates = credentials.filter((c) => c.data.kind === 'certificate');
   {
     certifications.length > 0 && (
       <section class="mt-4">
-        <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">Certifications</h2>
+        <h2 class="font-mono text-xs tracking-[0.2em] text-accent" data-reveal>CERTIFICATIONS</h2>
         <div class="mt-4 grid gap-4">
-          {certifications.map((credential) => (
-            <CredentialCard credential={credential} />
+          {certifications.map((credential, i) => (
+            <div data-reveal style={`--reveal-delay:${i * 80}ms`}>
+              <CredentialCard credential={credential} />
+            </div>
           ))}
         </div>
       </section>
@@ -40,12 +45,14 @@ const certificates = credentials.filter((c) => c.data.kind === 'certificate');
   {
     certificates.length > 0 && (
       <section class="mt-12">
-        <h2 class="text-sm font-semibold uppercase tracking-wider text-muted">
-          Courses and workshops
+        <h2 class="font-mono text-xs tracking-[0.2em] text-accent" data-reveal>
+          COURSES AND WORKSHOPS
         </h2>
         <div class="mt-4 grid gap-4">
-          {certificates.map((credential) => (
-            <CredentialCard credential={credential} />
+          {certificates.map((credential, i) => (
+            <div data-reveal style={`--reveal-delay:${Math.min(i, 6) * 60}ms`}>
+              <CredentialCard credential={credential} />
+            </div>
           ))}
         </div>
       </section>

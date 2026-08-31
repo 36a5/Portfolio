@@ -8,19 +8,23 @@ const filters = collectFilters(projects);
 ---
 
 <Base title="Projects" description="Machine learning, computer vision, agentic AI and full-stack projects.">
-  <header class="py-8">
-    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Projects</h1>
-    <p class="mt-3 max-w-2xl text-muted">
-      {projects.length} projects, newest first. Filter by language, tool or topic.
+  <header class="py-10" data-reveal>
+    <p class="font-mono text-xs tracking-[0.2em] text-accent-2">// PORTFOLIO</p>
+    <h1 class="mt-2 text-4xl font-black tracking-tight sm:text-5xl">
+      <span class="gradient-text">Projects</span>
+    </h1>
+    <p class="mt-4 max-w-2xl text-muted">
+      <span class="font-mono text-accent">{projects.length}</span> projects, newest first. Filter by
+      topic.
     </p>
   </header>
 
-  <div id="filters" class="flex flex-wrap gap-2 border-y border-border py-4">
+  <div id="filters" class="flex flex-wrap gap-2 border-y border-border py-4" data-reveal>
     <button
       type="button"
       data-filter="all"
       aria-pressed="true"
-      class="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:text-ink aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
+      class="rounded-full border border-border px-3 py-1.5 font-mono text-xs text-muted transition hover:border-accent/60 hover:text-ink aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
       >All</button
     >
     {
@@ -29,7 +33,7 @@ const filters = collectFilters(projects);
           type="button"
           data-filter={filter.toLowerCase()}
           aria-pressed="false"
-          class="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:text-ink aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
+          class="rounded-full border border-border px-3 py-1.5 font-mono text-xs text-muted transition hover:border-accent/60 hover:text-ink aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
         >
           {filter}
         </button>
@@ -38,7 +42,13 @@ const filters = collectFilters(projects);
   </div>
 
   <div id="grid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-    {projects.map((project) => <ProjectCard project={project} />)}
+    {
+      projects.map((project, i) => (
+        <div data-reveal style={`--reveal-delay:${(i % 3) * 90}ms`}>
+          <ProjectCard project={project} />
+        </div>
+      ))
+    }
   </div>
 
   <p id="empty" hidden class="mt-8 text-muted">No projects match that filter.</p>
@@ -62,7 +72,8 @@ const filters = collectFilters(projects);
     grid.querySelectorAll<HTMLElement>('article[data-tags]').forEach((card) => {
       const tags = (card.dataset.tags ?? '').split('|');
       const show = active === 'all' || tags.includes(active);
-      card.hidden = !show;
+      const wrapper = (card.parentElement as HTMLElement | null) ?? card;
+      wrapper.hidden = !show;
       if (show) visible += 1;
     });
     empty.hidden = visible > 0;

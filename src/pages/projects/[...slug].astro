@@ -27,17 +27,19 @@ const facts = [
 ---
 
 <Base title={data.title} description={data.summary}>
-  <nav class="py-6 text-sm">
-    <a href={href('/projects')} class="text-muted hover:text-accent">← All projects</a>
+  <nav class="py-6 font-mono text-sm">
+    <a href={href('/projects')} class="group text-muted transition-colors hover:text-accent">
+      <span class="inline-block transition-transform group-hover:-translate-x-1">←</span> all projects
+    </a>
   </nav>
 
   <article>
-    <header>
+    <header data-reveal>
       <div class="flex flex-wrap items-center gap-2">
         {data.status === 'in-progress' && <Pill tone="accent">Active</Pill>}
         {data.tags.map((tag) => <Pill>{tag}</Pill>)}
       </div>
-      <h1 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{data.title}</h1>
+      <h1 class="mt-4 text-3xl font-black tracking-tight sm:text-5xl">{data.title}</h1>
       <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{data.summary}</p>
     </header>
 
@@ -58,7 +60,7 @@ const facts = [
         <Content />
       </div>
 
-      <aside class="lg:sticky lg:top-24 lg:self-start">
+      <aside class="lg:sticky lg:top-24 lg:self-start" data-reveal>
         <dl class="rounded-xl border border-border bg-surface p-5 text-sm">
           {
             facts.map(([label, value]) => (

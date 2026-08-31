@@ -1,0 +1,61 @@
+---
+/**
+ * The shape of the work, as a strip: a pulse travels along the track while each
+ * stage lights up in turn. Decorative, but it says something true about how a
+ * model actually reaches production.
+ */
+const stages = [
+  { label: 'raw data', note: 'messy, missing' },
+  { label: 'clean', note: 'pipelines' },
+  { label: 'features', note: 'engineering' },
+  { label: 'model', note: 'train + evaluate' },
+  { label: 'production', note: 'people use it' },
+];
+---
+
+<div class="relative overflow-hidden rounded-xl border border-border bg-surface p-6" data-reveal>
+  <p class="font-mono text-xs tracking-[0.2em] text-accent-2">// HOW THE WORK RUNS</p>
+
+  <ol class="relative mt-6 grid gap-6 sm:grid-cols-5 sm:gap-3">
+    <!-- the track, and the pulse that runs along it -->
+    <div
+      class="pointer-events-none absolute left-2 top-2 hidden h-px w-[calc(100%-1rem)] bg-border sm:block"
+      aria-hidden="true"
+    >
+      <span
+        class="absolute -top-px block h-0.5 w-24 rounded-full bg-gradient-to-r from-transparent via-accent to-transparent"
+        style="animation: pipeline-pulse 4.5s ease-in-out infinite"
+      ></span>
+    </div>
+
+    {
+      stages.map((stage, i) => (
+        <li class="relative sm:pt-6" data-reveal style={`--reveal-delay:${i * 110}ms`}>
+          <span
+            class="absolute left-0 top-0 hidden h-4 w-4 -translate-y-1/2 items-center justify-center sm:flex"
+            aria-hidden="true"
+          >
+            <span
+              class="h-2 w-2 rounded-full bg-accent"
+              style={`animation: pulse-node 4.5s ease-in-out ${i * 0.9}s infinite`}
+            />
+          </span>
+          <p class="font-mono text-sm text-ink">
+            <span class="text-muted sm:hidden">{`0${i + 1} `}</span>
+            {stage.label}
+          </p>
+          <p class="mt-0.5 text-xs text-muted">{stage.note}</p>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  @keyframes pipeline-pulse {
+    0% { transform: translateX(-10%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(100vw); opacity: 0; }
+  }
+</style>

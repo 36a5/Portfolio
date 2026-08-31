@@ -147,3 +147,29 @@ external.
 **Why:** the Aramco project needed to link the recommendation letter, which is served from this
 site. Note that markdown bodies are *not* base-path aware — a `/letters/...` link written inside a
 markdown body would break under the `/Portfolio` base path. Internal links belong in front matter.
+
+### D-016 — Dark-first "lab" theme, violet and cyan, with motion throughout
+**2026-08-31.** The teal theme was replaced with a validated three-accent palette — violet, cyan and
+amber — over a near-black blue ground, and the site gained an animation layer: an animated neural
+network behind the hero, a code card that types itself out, counting stat tiles, a scrolling stack
+ticker, an ML pipeline strip, scroll-triggered reveals, a scroll-progress bar, a pointer-tracking
+glow, and hover sweeps on cards.
+**Why:** the owner asked for something more distinctive, with motion and imagery that reads as
+machine learning and software engineering rather than a generic CV template.
+**Palette:** the three accents were checked with the categorical-palette validator in both modes —
+lightness band, chroma floor, colour-vision separation and contrast against the surface. The first
+two candidate sets failed the lightness band and were re-stepped until all six checks passed. Light
+mode uses `#6d28d9 / #0891b2 / #b45309`; dark mode uses `#8b5cf6 / #0ea5b7 / #c0810c` as the mark
+colours, with lighter tints for text where contrast demands.
+**Restraint:** motion is decoration, never information. `prefers-reduced-motion` disables every
+animation and forces revealed content visible, so nothing is hidden behind an effect. Reading
+surfaces — project bodies, the résumé — stay calm; the movement lives on the home page.
+
+### D-017 — No invented charts
+**2026-08-31.** The redesign uses hero stat tiles (single real numbers) and abstract ornament. It
+does not include a plotted chart.
+**Why:** a decorative "loss curve" or fake accuracy plot on a portfolio reads as a result rather
+than a texture, and the numbers behind it would not exist. Stat tiles carry values that are true
+and checkable — the project and certificate counts come from the content collections, so they
+cannot drift, and the GPA and cohort rank come from the CV. The neural network and pipeline strip
+are explicitly ornamental and encode nothing.

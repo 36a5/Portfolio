@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import ThemeScript from '../components/ThemeScript.astro';
+import ScrollProgress from '../components/ScrollProgress.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
@@ -35,7 +36,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
     <meta name="generator" content={Astro.generator} />
     <ThemeScript />
   </head>
-  <body class="min-h-screen bg-bg font-sans text-ink antialiased">
+  <body class="relative min-h-screen bg-bg font-sans text-ink antialiased">
+    <!-- Drifting blueprint grid, masked to the top of the page. -->
+    <div class="grid-field pointer-events-none fixed inset-0 -z-10 opacity-60" aria-hidden="true"></div>
+    <ScrollProgress />
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-bg"
@@ -46,5 +50,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
       <slot />
     </main>
     <Footer />
+    <script>
+      import '../scripts/motion.ts';
+    </script>
   </body>
 </html>

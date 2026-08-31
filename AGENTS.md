@@ -103,8 +103,14 @@ A personal portfolio site for the owner: projects, certificates and certificatio
 "now" status. Audience is employers and recruiters, so the public site stays factual and plain.
 
 **Stack:** Astro 7 (static output) · Tailwind CSS 4 · TypeScript · Markdown content collections
-validated with Zod. No client framework — the only JavaScript shipped is the theme toggle and the
-project filter.
+validated with Zod. No client framework. The only JavaScript shipped is the theme toggle, the
+project filter, and `src/scripts/motion.ts` (scroll reveals, counting numbers, scroll-progress bar,
+pointer glow).
+
+**Design rules.** Colour tokens live in `src/styles/global.css` and nowhere else — never hard-code a
+hex value in a component. Motion is decoration, never information: every animation must be disabled
+under `prefers-reduced-motion`, and no content may be reachable only through an animation. Do not
+add a chart whose numbers are invented; see `docs/DECISIONS.md` → D-017.
 
 **Commands**
 

@@ -1,0 +1,80 @@
+---
+/**
+ * Decorative feed-forward network behind the hero: nodes breathe, and pulses
+ * travel along the edges. Coordinates are computed once at build time so the
+ * drawing is identical on every render. Purely ornamental — it encodes nothing.
+ */
+const layers = [4, 6, 6, 3];
+const width = 900;
+const height = 420;
+const gapX = width / (layers.length + 1);
+
+const nodes = layers.flatMap((count, layerIndex) =>
+  Array.from({ length: count }, (_, i) => ({
+    id: `${layerIndex}-${i}`,
+    layer: layerIndex,
+    x: gapX * (layerIndex + 1),
+    y: (height / (count + 1)) * (i + 1),
+    delay: (layerIndex * 0.4 + i * 0.22).toFixed(2),
+  })),
+);
+
+const edges = layers.slice(0, -1).flatMap((_, layerIndex) => {
+  const from = nodes.filter((n) => n.layer === layerIndex);
+  const to = nodes.filter((n) => n.layer === layerIndex + 1);
+  return from.flatMap((a) =>
+    to
+      // thin the graph out so it reads as a network, not a solid mesh
+      .filter((_, i) => (a.y + i) % 2 === 0 || Math.abs(a.y - to[i].y) < 90)
+      .map((b) => ({
+        id: `${a.id}->${b.id}`,
+        d: `M${a.x} ${a.y} L${b.x} ${b.y}`,
+        delay: ((a.y + b.y) % 700 / 260).toFixed(2),
+      })),
+  );
+});
+---
+
+<svg
+  class="h-full w-full"
+  viewBox={`0 0 ${width} ${height}`}
+  preserveAspectRatio="xMidYMid slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g stroke="currentColor" class="text-accent/25">
+    {edges.map((edge) => <path d={edge.d} fill="none" stroke-width="1" />)}
+  </g>
+
+  <g stroke="currentColor" class="text-accent-2/90" style="--dash: 200">
+    {
+      edges.map((edge) => (
+        <path
+          d={edge.d}
+          fill="none"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-dasharray="5 210"
+          style={`animation: signal 3.6s linear ${edge.delay}s infinite`}
+        />
+      ))
+    }
+  </g>
+
+  <g>
+    {
+      nodes.map((node) => (
+        <>
+          <circle
+            cx={node.x}
+            cy={node.y}
+            r="9"
+            class="fill-accent/10"
+            style={`animation: pulse-node 4s ease-in-out ${node.delay}s infinite`}
+          />
+          <circle cx={node.x} cy={node.y} r="3.2" class="fill-accent" />
+        </>
+      ))
+    }
+  </g>
+</svg>

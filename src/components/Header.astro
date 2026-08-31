@@ -9,12 +9,18 @@ const isActive = (path: string) => {
 };
 ---
 
-<header class="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur">
+<header class="sticky top-0 z-40 border-b border-border bg-bg/70 backdrop-blur-xl">
   <div
     class="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-3 gap-y-2 px-5 py-3 sm:flex-nowrap sm:px-8"
   >
-    <a href={href('/')} class="mr-auto font-semibold tracking-tight hover:text-accent">
-      {site.name}
+    <a href={href('/')} class="group mr-auto flex items-center gap-2">
+      <span
+        class="grid h-7 w-7 place-items-center rounded-md bg-gradient-to-br from-accent to-accent-2 font-mono text-xs font-bold text-white transition-transform duration-500 group-hover:rotate-[360deg]"
+        >AS</span
+      >
+      <span class="font-semibold tracking-tight transition-colors group-hover:text-accent">
+        {site.name}
+      </span>
     </a>
 
     <div class="order-1 sm:order-3 sm:ml-3"><ThemeToggle /></div>
@@ -30,11 +36,17 @@ const isActive = (path: string) => {
             href={href(item.path)}
             aria-current={isActive(item.path) ? 'page' : undefined}
             class:list={[
-              'whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm transition sm:px-3',
-              isActive(item.path) ? 'bg-accent-soft text-accent' : 'text-muted hover:text-ink',
+              'group relative whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm transition sm:px-3',
+              isActive(item.path) ? 'text-accent' : 'text-muted hover:text-ink',
             ]}
           >
             {item.label}
+            <span
+              class:list={[
+                'absolute inset-x-2.5 -bottom-0.5 h-px origin-left bg-gradient-to-r from-accent to-accent-2 transition-transform duration-300 sm:inset-x-3',
+                isActive(item.path) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
+              ]}
+            />
           </a>
         ))
       }

@@ -9,6 +9,9 @@ deploy workflow ran, and every route was verified in production: all pages 200, 
 15 credential cards, both PDFs served, sitemap present, and no phantom dates.
 
 - **Stack:** Astro 7 static, Tailwind 4, TypeScript, markdown content collections.
+- **Design:** dark-first violet/cyan theme with an animation layer — animated neural network, a
+  self-typing code card, counting stat tiles, a stack ticker, an ML pipeline strip, scroll reveals,
+  a scroll-progress bar and pointer glow. All of it is disabled under `prefers-reduced-motion`.
 - **Pages:** home, projects index with topic filter, project detail, certificates, now, about, 404.
 - **Content:** 12 published projects, 1 draft, 15 certificates and certifications, 5 roles in the
   experience timeline, education, awards, skills, one "now" entry, a redacted CV and the Saudi

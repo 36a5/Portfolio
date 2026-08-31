@@ -5,6 +5,63 @@ per the memory protocol in `AGENTS.md` section 5.
 
 ---
 
+## 2026-08-31 — Session 6: redesign, motion, and a status update
+
+**Goal:** the owner asked for a more distinctive design with a new colour theme, a lot of animation,
+and visual language drawn from machine learning, software engineering and data analysis. He also
+asked the site to say he is working towards AI/ML engineering certifications and building several
+machine-learning and agentic AI automation projects.
+
+**Theme**
+
+- `src/styles/global.css` rewritten: a dark-first near-black ground with violet, cyan and amber
+  accents, replacing the teal theme. The three accents were run through the categorical-palette
+  validator for both modes; the first two candidate sets failed the lightness band and were
+  re-stepped until all checks passed. Recorded as D-016.
+- Keyframes and animation utilities live in the same file: reveal, float, node pulse, edge signal,
+  grid drift, caret, marquee, sweep, gradient shift.
+
+**New components**
+
+- `NeuralNet.astro` — a feed-forward graph behind the hero; nodes breathe and pulses travel the
+  edges. Coordinates are computed at build time so the drawing is stable.
+- `CodeTerminal.astro` — an editor card that types out the routing agent from the SDAIA capstone.
+- `StatTiles.astro` — four counting hero numbers; the project and certificate counts read from the
+  collections so they stay true.
+- `TechMarquee.astro` — an infinite ticker of the stack, paused on hover.
+- `PipelineStrip.astro` — raw data → clean → features → model → production, with a pulse running
+  along the track.
+- `SectionTitle.astro`, `ScrollProgress.astro`, and `src/scripts/motion.ts` (reveals, counters,
+  progress bar, pointer glow).
+
+**Reworked**
+
+- Home page rebuilt around the hero, stats, ticker, pipeline, status panel and sections.
+- Header: gradient monogram that spins on hover, animated underline on the active link.
+- Cards: hover lift, a light sweep across the surface, and an accent hairline on the cover.
+- Every page header now carries a mono kicker and a gradient title; list items reveal on scroll.
+
+**Content**
+
+- The `now` entry now leads with working towards **AI/ML engineering certifications** and building
+  **several machine-learning and agentic AI automation projects**.
+
+**Fixed while building**
+
+- The first hero was roughly twice as tall as intended: the code card was a `<pre>`, and the
+  newlines the template emits between elements each rendered as an extra blank line. Lines are now
+  `whitespace-pre` divs.
+- The neural network was dialled back on small screens where it crossed the hero paragraph.
+
+**Verified**
+
+- `npm run build` → 18 pages; `npm run check` → 0 errors, 0 warnings.
+- Rendered home, projects, about, now and certificates at 1280px and 390px in both themes.
+- `prefers-reduced-motion` is honoured: every animation is disabled and revealed content is forced
+  visible, so no content is reachable only through motion.
+
+---
+
 ## 2026-08-31 — Session 5: the site went live
 
 The owner switched GitHub Pages on (Settings → Pages → Source: GitHub Actions), which was the one

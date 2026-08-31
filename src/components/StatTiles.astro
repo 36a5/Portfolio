@@ -1,0 +1,38 @@
+---
+import { getProjects, getCredentials } from '../lib/content';
+
+/**
+ * Four hero numbers. Not a chart: each one is a single value, so it gets a
+ * stat tile rather than a plot. Numbers wear ink, not accent — the accent is
+ * the rule above them. Counts come from the content collections, so they stay
+ * true as content is added.
+ */
+const projects = await getProjects();
+const credentials = await getCredentials();
+
+const tiles = [
+  { count: projects.length, decimals: 0, suffix: '', label: 'Projects shipped' },
+  { count: credentials.length, decimals: 0, suffix: '', label: 'Certificates earned' },
+  { count: 4.8, decimals: 2, suffix: ' / 5', label: 'GPA, first class honours' },
+  { count: 1, decimals: 0, suffix: 'st', label: 'Ranked in cohort of 21' },
+];
+---
+
+<dl class="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
+  {
+    tiles.map((tile, i) => (
+      <div
+        class="group relative bg-surface p-5 transition-colors hover:bg-raised"
+        data-reveal
+        style={`--reveal-delay:${i * 90}ms`}
+      >
+        <div class="h-0.5 w-8 bg-gradient-to-r from-accent to-accent-2 transition-all duration-500 group-hover:w-16" />
+        <dd class="mt-3 text-3xl font-bold tracking-tight tabular sm:text-4xl">
+          <span data-count={tile.count} data-decimals={tile.decimals}>0</span>
+          <span class="text-xl text-muted sm:text-2xl">{tile.suffix}</span>
+        </dd>
+        <dt class="mt-1 text-xs leading-snug text-muted">{tile.label}</dt>
+      </div>
+    ))
+  }
+</dl>
