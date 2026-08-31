@@ -5,6 +5,31 @@ per the memory protocol in `AGENTS.md` section 5.
 
 ---
 
+## 2026-08-31 — Session 7: two more roles and the volunteer certificate
+
+The owner supplied a screenshot of his LinkedIn experience section and a scan of a volunteer
+certificate.
+
+**Added**
+
+- `src/content/experience/ksu-teaching-assistant.md` — Teaching Assistant, King Saud University,
+  August 2021 to December 2025. No highlights: the source gave none, and none were invented.
+- `src/content/experience/ksu-podcast-producer.md` — Podcast Producer (volunteer), King Saud
+  University, July to August 2025: turning written books into briefed AI podcasts, 70 certified
+  volunteer hours.
+- `src/content/credentials/volunteer-ai-podcast-design.md` — the volunteer certificate for
+  "Designing a Podcast with AI", issued 30 July 2025 by the National Center for Non-Profit Sector
+  through the National Volunteer Platform, with King Saud University Press.
+
+**Not added: the certificate image.** The scan carries the owner's national ID number in plain text
+and a QR code that likely encodes the same record. It is not committed, and the credential entry
+therefore has no `image:` field. Recorded as D-018.
+
+The home page's certificate count moved from 15 to 16 on its own — the stat tiles read the
+collections rather than a hard-coded number.
+
+---
+
 ## 2026-08-31 — Session 6: redesign, motion, and a status update
 
 **Goal:** the owner asked for a more distinctive design with a new colour theme, a lot of animation,

@@ -152,6 +152,6 @@ export and his CVs. Nothing on the site was invented. Some dates are still appro
 source gave only a year — see `docs/STATE.md`.
 
 **Personal data:** this is a public site. The owner's email and public profile links belong on it.
-His phone number, his home address, and any third party's contact details do not — the CVs he
-supplied contain all three, which is why no CV PDF is committed. See `docs/DECISIONS.md` → D-011
-before adding one.
+His phone number, his home address, his national ID number, and any third party's contact details
+do not. Read what is actually printed on a certificate scan before committing it — see
+`docs/DECISIONS.md` → D-014 and D-018.

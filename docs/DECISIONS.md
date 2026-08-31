@@ -173,3 +173,15 @@ than a texture, and the numbers behind it would not exist. Stat tiles carry valu
 and checkable — the project and certificate counts come from the content collections, so they
 cannot drift, and the GPA and cohort rank come from the CV. The neural network and pipeline strip
 are explicitly ornamental and encode nothing.
+
+### D-018 — Certificate scans are checked for identifiers before they are committed
+**2026-08-31.** The volunteer certificate for the AI podcast opportunity is published as a text
+entry with no image. The scan itself is not in the repository.
+**Why:** it prints the owner's national ID number, and carries a QR code that most likely resolves
+to the same record. A national ID on a public, search-indexed page is an identity-theft vector, and
+unlike a phone number it cannot be changed.
+**Rule for future certificates:** before committing any certificate image, read what is actually
+printed on it. National ID numbers, phone numbers, home addresses and verification QR codes are
+removed, or the image stays out and the entry runs on text alone. A raster image can be redacted by
+painting over the region — unlike a PDF, the pixels are genuinely destroyed — so a cleaned copy is
+an option when the owner wants the scan shown.
