@@ -50,17 +50,21 @@ for f in "${FILES[@]}"; do
 done
 
 # ----------------------------------------------------------- 2. file content
+# Streamed rather than captured into a variable: a PDF or an image would make
+# the shell warn about null bytes on every commit. grep -I skips binaries.
+read_file() {
+  if [ "$MODE" = "--all" ]; then
+    cat -- "$1" 2>/dev/null
+  else
+    git show ":$1" 2>/dev/null
+  fi
+}
+
 for f in "${FILES[@]}"; do
   [ -n "$f" ] || continue
-  if [ "$MODE" = "--all" ]; then
-    content=$(cat -- "$f" 2>/dev/null)
-  else
-    content=$(git show ":$f" 2>/dev/null)
-  fi
-  if printf '%s' "$content" | grep -qIiE "$PATTERN"; then
-    hits=$(printf '%s' "$content" | grep -niIE "$PATTERN" | head -3 | cut -c1-100)
+  if read_file "$f" | grep -qIiE "$PATTERN"; then
     bad "blocked term inside $f"
-    printf '%s\n' "$hits" | sed 's/^/       /'
+    read_file "$f" | grep -niIE "$PATTERN" | head -3 | cut -c1-100 | sed 's/^/       /'
   fi
 done
 
