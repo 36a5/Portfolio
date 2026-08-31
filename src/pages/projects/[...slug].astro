@@ -41,9 +41,15 @@ const facts = [
       <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{data.summary}</p>
     </header>
 
-    <div class="mt-8 aspect-[16/9] overflow-hidden rounded-xl border border-border">
-      <CoverImage src={data.cover} alt={data.coverAlt} title={data.title} />
-    </div>
+    {
+      /* A full-width gradient placeholder is dead space on a detail page; the
+         card grid keeps its placeholder, this only renders with a real image. */
+      data.cover && (
+        <div class="mt-8 aspect-[16/9] overflow-hidden rounded-xl border border-border">
+          <CoverImage src={data.cover} alt={data.coverAlt} title={data.title} />
+        </div>
+      )
+    }
 
     <div class="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
       <div
