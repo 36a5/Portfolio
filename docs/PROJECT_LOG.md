@@ -5,6 +5,23 @@ per the memory protocol in `AGENTS.md` section 5.
 
 ---
 
+## 2026-08-31 — Session 5: the site went live
+
+The owner switched GitHub Pages on (Settings → Pages → Source: GitHub Actions), which was the one
+thing the workflow token could not do for itself. The deploy workflow then published without any
+further change.
+
+**Verified in production at https://36a5.github.io/Portfolio**
+
+- Every route returns 200 through its trailing-slash redirect: home, projects, certificates, now,
+  about, and the project detail pages.
+- 12 project cards and 15 credential cards render; no certificate shows a phantom date.
+- Both PDFs are served, and re-extracting their text from the live URLs confirms none of the
+  redacted personal data survives.
+- `sitemap-index.xml` is present.
+
+---
+
 ## 2026-08-31 — Session 4: CV and recommendation letter published, redacted
 
 **Goal:** the owner asked for the CV to go up with personal details removed but his email kept, and

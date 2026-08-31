@@ -4,7 +4,9 @@ _Last updated: 2026-08-31_
 
 ## Now
 
-The portfolio site is built and pushed. It is not published yet — see "Blocked on the owner".
+**The site is live at https://36a5.github.io/Portfolio** — the owner switched GitHub Pages on, the
+deploy workflow ran, and every route was verified in production: all pages 200, 12 project cards,
+15 credential cards, both PDFs served, sitemap present, and no phantom dates.
 
 - **Stack:** Astro 7 static, Tailwind 4, TypeScript, markdown content collections.
 - **Pages:** home, projects index with topic filter, project detail, certificates, now, about, 404.
@@ -18,11 +20,7 @@ The portfolio site is built and pushed. It is not published yet — see "Blocked
 
 ## Blocked on the owner
 
-1. **Switch GitHub Pages on, once.** Settings → Pages → Build and deployment → Source:
-   **GitHub Actions**. The workflow token is not permitted to create the Pages site itself; both
-   deploy runs so far failed on exactly that. Once it is on, every push publishes automatically to
-   `https://36a5.github.io/Portfolio`.
-2. **Decide the public URL.** The owner asked for a domain carrying his name. His LinkedIn already
+1. **Decide the public URL.** The owner asked for a domain carrying his name. His LinkedIn already
    points at a name-based host subdomain, which suggests moving the deployment there, or buying a
    custom domain and pointing it at Pages. See `docs/DECISIONS.md` → D-008.
 4. **Confirm dates and details.** Several project dates are approximations: repository timestamps
@@ -32,7 +30,7 @@ The portfolio site is built and pushed. It is not published yet — see "Blocked
    screenshots go in `src/assets/projects/<slug>/`.
 6. **`aiamp-frontend`** is committed with `draft: true` — the repository has no description and
    nothing is known about it.
-7. **Check the two redacted PDFs** before the site goes public: `public/cv/` and
+6. **Check the two redacted PDFs** before the site goes public: `public/cv/` and
    `public/letters/`. What was removed from each is recorded in `docs/DECISIONS.md` → D-014.
 
 ## Next
